@@ -1,0 +1,3 @@
+([('LifeTimer',
+   '/Users/iainrosen/Documents/Projects/LifeTimer/dist/LifeTimer',
+   'EXECUTABLE')],)
