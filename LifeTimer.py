@@ -27,6 +27,7 @@ class savefile:
         betterconfigs.config('.ltconfig')["lastSave"]=filename
         self.filename=filename
         self.bc=betterconfigs.config(filename)
+        self.selfCheck()
         try:
             self.bc.encKey=betterconfigs.config('.ltconfig')["eKey"]
         except:
@@ -50,6 +51,22 @@ class savefile:
             self.bc["recordTime"]=self.recTime
         except:
             newFile(QFileDialog.getSaveFileName(window, 'New LT'))
+    def selfCheck(self):
+        while True:
+            try:
+                self.bc.encKey=betterconfigs.config('.ltconfig')["eKey"]
+                break
+            except:
+                encKeyManual, confirm = QInputDialog.getText(window, "Missing Encryption Key", "I couldn't find the encryption key for your configuration files! If you know it, enter it below:")
+                if confirm:
+                    try:
+                        betterconfigs.config('.ltconfig')["eKey"]=encKeyManual
+                        betterconfigs.config('.ltconfig')["lastSave"]
+                        break
+                    except:
+                        pass
+                if not confirm:
+                    window.closeEvent()
 def openFile(filename):
     if len(filename)==0:
         return
